@@ -158,10 +158,8 @@ public class YoutubeSearchProvider implements YoutubeSearchResultLoader {
 
     String title = json.get("title").get("runs").index(0).get("text").text();
     String author = json.get("ownerText").get("runs").index(0).get("text").text();
-    long duration = Long.MAX_VALUE; // Default to live stream length
-    if (!json.get("lengthText").isNull()) {
-      duration = DataFormatTools.durationTextToMillis(json.get("lengthText").get("simpleText").text());
-    }
+    if (json.get("lengthText").isNull()) return null;
+    long duration = DataFormatTools.durationTextToMillis(json.get("lengthText").get("simpleText").text());
     String videoId = json.get("videoId").text();
     boolean isStream = duration == Long.MAX_VALUE;
 
