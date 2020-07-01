@@ -161,9 +161,8 @@ public class YoutubeSearchProvider implements YoutubeSearchResultLoader {
     if (json.get("lengthText").isNull()) return null;
     long duration = DataFormatTools.durationTextToMillis(json.get("lengthText").get("simpleText").text());
     String videoId = json.get("videoId").text();
-    boolean isStream = duration == Long.MAX_VALUE;
 
-    AudioTrackInfo info = new AudioTrackInfo(title, author, duration, videoId, isStream,
+    AudioTrackInfo info = new AudioTrackInfo(title, author, duration, videoId, false,
         WATCH_URL_PREFIX + videoId);
 
     return trackFactory.apply(info);
